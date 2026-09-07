@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Madhavi Porte | Full-Stack Developer</title>
+  <meta name="description" content="Portfolio of Madhavi Porte, a full-stack developer building fast, accessible, and user-friendly web applications.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%234f46e5'/%3E%3Ctext%20x='32'%20y='44'%20font-family='Arial,sans-serif'%20font-size='30'%20font-weight='700'%20fill='%23fff'%20text-anchor='middle'%3EMP%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Primary">
+      <a href="#home" class="logo">Madhavi Porte<span class="logo-dot">.</span></a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section id="home" class="hero">
+      <div class="container">
+        <p class="hero-greeting">Hi there, I'm</p>
+        <h1 class="hero-name">Madhavi Porte</h1>
+        <p class="hero-tagline">Full-Stack Developer building fast, accessible web experiences.</p>
+        <p class="hero-sub">I design and build clean, user-friendly applications end to end — from responsive interfaces to reliable back-end APIs.</p>
+
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+
+        <div class="hero-socials">
+          <a href="https://github.com/madhaviporte" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+            <svg class="icon icon-fill" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/madhavi-porte-091219329/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+            <svg class="icon icon-fill" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+            </svg>
+          </a>
+          <a href="mailto:madhaviporte2004@gmail.com" aria-label="Send an email">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section about">
+      <div class="container">
+        <p class="section-kicker">01. About</p>
+        <h2 class="section-title">About Me</h2>
+
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              Hi! I'm <strong>Madhavi</strong>, a full-stack developer who loves turning ideas into
+              fast, accessible web applications. I enjoy working across the whole stack — crafting
+              clean, responsive interfaces on the front end and building dependable APIs and
+              databases on the back end.
+            </p>
+            <p>
+              When I'm not coding, you'll find me exploring new technologies, contributing to open
+              source, or sharpening my skills on coding platforms. I'm always excited to learn,
+              collaborate, and build things that make a difference.
+            </p>
+          </div>
+
+          <aside class="about-card" aria-label="Quick facts">
+            <h3>Quick Facts</h3>
+            <ul class="facts-list">
+              <li><span class="fact-label">Location</span><span class="fact-value">Bilaspur, India</span></li>
+              <li><span class="fact-label">Education</span><span class="fact-value">B.Tech in CSE</span></li>
+              <li><span class="fact-label">Status</span><span class="fact-value">Open to full-time roles</span></li>
+              <li><span class="fact-label">Interests</span><span class="fact-value">MERN Stack Development</span></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section skills">
+      <div class="container">
+        <p class="section-kicker">02. Skills</p>
+        <h2 class="section-title">Skills &amp; Technologies</h2>
+        <p class="section-sub">The tools and technologies I use to bring ideas to life.</p>
+
+        <div class="skills-grid">
+          <article class="skill-card">
+            <h3>Frontend</h3>
+            <ul class="skill-list">
+              <li class="skill-chip">HTML5</li>
+              <li class="skill-chip">CSS3</li>
+              <li class="skill-chip">JavaScript (ES6+)</li>
+              <li class="skill-chip">React</li>
+              <li class="skill-chip">Responsive Design</li>
+            </ul>
+          </article>
+
+          <article class="skill-card">
+            <h3>Backend</h3>
+            <ul class="skill-list">
+              <li class="skill-chip">Node.js</li>
+              <li class="skill-chip">Express</li>
+              <li class="skill-chip">Python</li>
+              <li class="skill-chip">REST APIs</li>
+              <li class="skill-chip">MongoDB</li>
+              <li class="skill-chip">SQL</li>
+            </ul>
+          </article>
+
+          <article class="skill-card">
+            <h3>Tools &amp; Others</h3>
+            <ul class="skill-list">
+              <li class="skill-chip">Git &amp; GitHub</li>
+              <li class="skill-chip">VS Code</li>
+              <li class="skill-chip">npm</li>
+              <li class="skill-chip">Postman</li>
+              <li class="skill-chip">Problem Solving</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section projects">
+      <div class="container">
+        <p class="section-kicker">03. Projects</p>
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-sub">A selection of things I've built. More on GitHub.</p>
+
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-head">
+              <h3 class="project-title">3D Interactive Dog Web App</h3>
+              <span class="project-num">01</span>
+            </div>
+            <p class="project-desc">
+            Built an interactive 3D dog experience in the browser using React and Three.js. The project includes smooth real-time rendering and animations to create a more engaging user experience. I also added basic user interactions so the 3D model responds on screen, and focused on optimizing performance to ensure smooth, lag-free rendering. The application is deployed on Vercel.
+            </p>
+            <ul class="project-tech">
+              <li>ReactJs</li>
+              <li>ThreeJS</li>
+              <li>JavaScript</li>
+              <li>SCSS</li>
+            </ul>
+            <div class="project-links">
+              <a class="btn btn-outline btn-sm" href="https://github.com/madhaviporte/3D-DOG" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a class="btn btn-primary btn-sm" href="https://3-d-dog-ten.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-head">
+              <h3 class="project-title">Productivity DashBoard</h3>
+              <span class="project-num">02</span>
+            </div>
+            <p class="project-desc">
+         Built a multi-feature productivity dashboard to manage daily tasks and activities. It includes sections like To-Do List, Daily Planner, Pomodoro Timer, and Daily Goals. The UI is interactive, allowing users to switch between different tools easily. I used JavaScript for DOM manipulation and real-time user interactions, and also integrated APIs to show dynamic data like weather updates.
+            </p>
+            <ul class="project-tech">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>APIs</li>
+            </ul>
+            <div class="project-links">
+              <a class="btn btn-outline btn-sm" href="https://github.com/madhaviporte/COHORT2-PROJECT/tree/main/productivity-dashboard" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a class="btn btn-primary btn-sm" href="https://productivity-databoard.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-head">
+              <h3 class="project-title">Moodify-Detect Mood Play Music</h3>
+              <span class="project-num">03</span>
+            </div>
+            <p class="project-desc">
+             Built a full-stack music recommendation app that uses real-time facial expression detection to suggest songs based on user mood. Integrated camera input with backend APIs to enable seamless mood detection and instant responses. Implemented secure JWT authentication with Redis token blacklisting to enhance session security. Used Redis caching to optimize performance, reducing response time and improving user experience. Designed scalable REST APIs and handled media processing to ensure smooth image handling and music playback.
+            </p>
+            <ul class="project-tech">
+              <li>JavaScript</li>
+              <li>ReactJs</li>
+              <li>NodeJS</li>
+              <li>ExpressJS</li>
+              <li>MongoDB</li>
+              <li>Redis</li>
+              <li>ImageKit</li>
+              <li>Postman</li>
+            </ul>
+            <div class="project-links">
+              <a class="btn btn-outline btn-sm" href="https://github.com/madhaviporte/Moodify" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a class="btn btn-primary btn-sm" href="https://moodify-pi-eight.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <p class="section-kicker">04. Contact</p>
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-sub">
+          Have an opportunity, a project, or just a question? My inbox is always open —
+          I'll get back to you as soon as I can.
+        </p>
+
+        <div class="contact-grid">
+          <a class="contact-card" href="mailto:madhavi.porte@example.com">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span class="contact-label">Email</span>
+            <span class="contact-value">madhaviporte2004@gmail.com</span>
+          </a>
+
+          <a class="contact-card" href="https://www.linkedin.com/in/madhavi-porte-091219329/" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-fill" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+            </svg>
+            <span class="contact-label">LinkedIn</span>
+            <span class="contact-value">linkedin.com/in/madhaviporte</span>
+          </a>
+
+          <a class="contact-card" href="https://github.com/madhaviporte" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-fill" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+            </svg>
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value">github.com/madhaviporte</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year">2026</span> Madhavi Porte. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <p class="footer-note">Designed &amp; built with HTML, CSS &amp; JavaScript.</p>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
