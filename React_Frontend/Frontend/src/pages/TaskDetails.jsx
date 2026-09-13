@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { ArrowLeft, CalendarPlus, CalendarClock, Hash, Pencil, Trash2 } from "lucide-react";
 import { getTask, deleteTask } from "../services/api";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
@@ -61,9 +62,10 @@ export default function TaskDetails() {
 
   if (error && !task) {
     return (
-      <div>
+      <div className="page-narrow">
         <ErrorMessage message={error} onRetry={handleRetry} />
         <Link to="/" className="btn btn-secondary">
+          <ArrowLeft size={15} aria-hidden="true" />
           Back to my tasks
         </Link>
       </div>
@@ -72,59 +74,70 @@ export default function TaskDetails() {
 
   if (!task) {
     return (
-      <div className="empty-state">
-        <p className="empty-title">Task not found</p>
-        <p>This task may have been deleted or belongs to another account.</p>
-        <Link to="/" className="btn btn-primary">
-          Back to my tasks
-        </Link>
+      <div className="page-narrow">
+        <div className="empty-state">
+          <p className="empty-title">Task not found</p>
+          <p>This task may have been deleted or belongs to another account.</p>
+          <Link to="/" className="btn btn-primary">
+            Back to my tasks
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <section className="detail-page">
+    <section className="page-narrow">
       <Link to="/" className="back-link">
-        ← Back to my tasks
+        <ArrowLeft size={15} aria-hidden="true" />
+        Back to my tasks
       </Link>
 
       {error && <ErrorMessage message={error} onRetry={handleRetry} />}
 
-      <article className="detail-card">
+      <article className="form-card">
         <div className="detail-head">
           <h1>{task.title}</h1>
           <StatusBadge status={task.status} />
         </div>
 
-        <p className="detail-description">
+        <p className="detail-desc">
           {task.description ? task.description : <em>No description provided.</em>}
         </p>
 
-        <dl className="detail-meta">
+        <dl className="meta-grid">
           <div>
-            <dt>Created</dt>
+            <dt>
+              <CalendarPlus size={12} aria-hidden="true" /> Created
+            </dt>
             <dd>{task.createdAt ? new Date(task.createdAt).toLocaleString() : "—"}</dd>
           </div>
           <div>
-            <dt>Last updated</dt>
+            <dt>
+              <CalendarClock size={12} aria-hidden="true" /> Last updated
+            </dt>
             <dd>{task.updatedAt ? new Date(task.updatedAt).toLocaleString() : "—"}</dd>
           </div>
           <div>
-            <dt>Task ID</dt>
+            <dt>
+              <Hash size={12} aria-hidden="true" /> Task ID
+            </dt>
             <dd className="mono">{task._id}</dd>
           </div>
         </dl>
 
         <div className="detail-actions">
           <Link to={`/tasks/${task._id}/edit`} className="btn btn-primary">
+            <Pencil size={15} aria-hidden="true" />
             Edit task
           </Link>
           <button
             type="button"
-            className="btn btn-danger"
+            className="btn btn-danger-soft"
             onClick={handleDelete}
             disabled={deleting}
           >
+            <Trash2 size={15} aria-hidden="true" />
             {deleting ? "Deleting..." : "Delete task"}
           </button>
         </div>

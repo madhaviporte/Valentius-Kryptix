@@ -1,139 +1,164 @@
-# TaskFlow — WA-3 React Frontend
+# TaskFlow — Frontend (WA-3)
 
-A responsive task manager frontend for the WA-2 **Task REST API** (Node.js/Express/MongoDB with JWT authentication). Users register, log in, and manage their own tasks.
+A modern, fully responsive task-management UI built with React. It connects to the **WA-2 Task REST API** (Node.js / Express / MongoDB) and provides user authentication plus full task CRUD.
 
-## Project Overview
+This is the WA-3 deliverable of the project. The backend lives in the sibling `Task-APIs` folder and is documented in its own `README.md`. **No backend code was modified by this frontend.**
 
-TaskFlow consumes the real WA-2 backend — there is **no mock data** anywhere in the app. Every list, detail, create, update, and delete action goes through the live REST API, and the JWT token from `/api/auth/login` is attached to every task request automatically.
+## Features
 
-## Technologies Used
+- **Authentication** — Register and Login pages with JWT-based auth (token + user persisted in `localStorage`)
+- **My Tasks dashboard** — dynamic statistics (Total / Completed / In Progress / Pending) computed from the fetched task data
+- **Task management** — create, view, edit, and delete tasks; status shown as colored pills (green / indigo / amber)
+- **Polished states** — dedicated loading ("Loading your tasks…"), empty ("No tasks yet"), and error ("Something went wrong" + Retry) presentations
+- **Split-screen auth layout** — deep-indigo branding panel with illustration and feature highlights beside a centered auth card
+- **Responsive navbar** — brand left, actions right on desktop; hamburger dropdown menu below 768px
+- **Adaptive task list** — column-headered table on desktop that transforms into vertical cards on mobile
+- **No horizontal overflow** — fluid grids, `clamp()` typography, and a unified breakpoint system (1024 / 768 / 480 / 360)
 
-- **React 19** + **Vite 8**
-- **React Router DOM 7** (`react-router-dom`) for client-side routing
-- Plain **CSS** (responsive, no UI framework)
-- React built-ins only: `useState`, `useEffect`, `useContext`, `useMemo` (no Redux/Zustand)
+## Tech Stack
 
-## Prerequisites
+- React 19
+- Vite 8
+- React Router 7
+- lucide-react (icons)
+- Plain CSS with custom design-system variables (no UI framework)
 
-The **WA-2 backend must be running** before starting the frontend:
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- The WA-2 backend running (default: `http://localhost:3000`) — see the backend README for setup
+
+### Install Dependencies
 
 ```bash
-# In the WA-2 project folder
 npm install
-npm run dev      # or: npm start
 ```
 
-The backend serves the API at `http://localhost:3000/api` (port from its `PORT` env var, default 3000). MongoDB must be reachable by the backend.
+### Environment Variables (optional)
 
-## Install & Run (Frontend)
-
-```bash
-npm install
-npm run dev
-```
-
-The app opens at **http://localhost:5173**.
-
-## Backend URL Configuration
-
-The API base URL is read from the `VITE_API_URL` environment variable in `.env`:
+Create a `.env` file in this folder to point the app at the backend:
 
 ```env
 VITE_API_URL=http://localhost:3000/api
 ```
 
-- Copy `.env.example` to `.env` if the file does not exist.
-- If you change the backend port, update `VITE_API_URL` to match (e.g. `http://localhost:4000/api`).
-- WA-2 serves routes under the `/api` prefix (`/api/auth/...`, `/api/tasks/...`), so the `/api` suffix **must be included**.
+If omitted, the app falls back to `http://localhost:3000/api`.
 
-## Available Frontend Routes
-
-| Route | Page | Protection |
-|---|---|---|
-| `/` | Task list (home) with status filter | Protected |
-| `/tasks/new` | Create task form | Protected |
-| `/tasks/:id` | Task details | Protected |
-| `/tasks/:id/edit` | Edit task form | Protected |
-| `/login` | Login form | Public |
-| `/register` | Registration form | Public |
-| any other URL | 404 Not Found page | Public |
-
-Protected pages redirect unauthenticated visitors to `/login` and return them to their original page after logging in.
-
-## How the Frontend Communicates with WA-2
-
-All requests go through one service module, `src/services/api.js`:
-
-- Base URL from `VITE_API_URL`
-- `Authorization: Bearer <token>` header attached automatically (token kept in `localStorage` from login)
-- `Content-Type: application/json` on requests with bodies
-- HTTP errors converted into readable messages taken from the backend's `{ message: "..." }` responses
-- Network failures (backend not running) produce a friendly "backend is running" error, never a crash
-
-Endpoints used:
-
-| Method | Endpoint | Used by |
-|---|---|---|
-| POST | `/api/auth/register` | Register page |
-| POST | `/api/auth/login` | Login page |
-| GET | `/api/tasks` | Home page |
-| GET | `/api/tasks/:id` | Details page, edit form |
-| POST | `/api/tasks` | Create form |
-| PUT | `/api/tasks/:id` | Edit form |
-| DELETE | `/api/tasks/:id` | Home page + details page |
-
-## Features
-
-- **Loading states** — spinner whenever API data is in flight (list, detail, form prefill, session check)
-- **Error states** — friendly message + **Try again** retry button when the backend is down or returns an error; the app never shows a blank screen
-- **Empty states** — "No tasks yet" prompt when the user has no tasks
-- **Forms & validation** — client-side validation before submit (required title, 100-char max matching the backend, optional description with 500-char guard, valid status, valid email format, password ≥ 6 chars, password confirmation) with inline messages and ARIA attributes
-- **Authentication** — register → login flow, session persisted in `localStorage`, logout button, expired/invalid tokens handled gracefully
-- **Responsive design** — works on desktop, tablet, and mobile (flex/grid layout, media queries)
-- **Accessibility** — labeled inputs, `aria-invalid`/`aria-describedby` on errors, `role="alert"`, keyboard-friendly controls
-
-## Production Build
+### Run in Development
 
 ```bash
-npm run build     # outputs static files to dist/
-npm run preview   # serves the production build locally
+npm run dev
 ```
 
-Deploy the `dist/` folder to any static host and set `VITE_API_URL` to the public backend URL at build time.
+The app will run on: `http://localhost:5173`
+
+### Production Build
+
+```bash
+npm run build
+npm run preview
+```
+
+### Lint
+
+```bash
+npm run lint
+```
+
+## Connection to the WA-2 Backend
+
+The frontend talks to these endpoints (all task routes require a Bearer token):
+
+| Method | Endpoint            | Used for                 |
+| ------ | ------------------- | ------------------------ |
+| POST   | `/api/auth/register`| Create an account        |
+| POST   | `/api/auth/login`   | Log in, receive JWT      |
+| GET    | `/api/tasks`        | List the user's tasks    |
+| POST   | `/api/tasks`        | Create a task            |
+| GET    | `/api/tasks/:id`    | Task details             |
+| PUT    | `/api/tasks/:id`    | Update a task            |
+| DELETE | `/api/tasks/:id`    | Delete a task            |
+
+Auth data is stored under these `localStorage` keys:
+
+- `taskflow_token` — the JWT sent as `Authorization: Bearer <token>`
+- `taskflow_user` — the logged-in user's id, name, and email
+
+If the backend is unreachable, the UI shows a clear error message instead of failing silently.
+
+## App Routes
+
+| Route            | Page              | Access    |
+| ---------------- | ----------------- | --------- |
+| `/`              | My Tasks (dashboard) | Protected |
+| `/tasks/new`     | New task form     | Protected |
+| `/tasks/:id`     | Task details      | Protected |
+| `/tasks/:id/edit`| Edit task form    | Protected |
+| `/login`         | Login             | Public    |
+| `/register`      | Register          | Public    |
+| `*`              | 404 Not Found     | Public    |
+
+Unauthenticated visitors to protected routes are redirected to `/login`.
 
 ## Project Structure
 
 ```
 Frontend/
-├── src/
-│   ├── components/
-│   │   ├── Layout.jsx           # navbar + outlet + footer
-│   │   ├── Loading.jsx          # spinner
-│   │   ├── ErrorMessage.jsx     # error panel with retry
-│   │   ├── ProtectedRoute.jsx   # auth route guard
-│   │   └── TaskCard.jsx         # task card + status badge
-│   ├── context/
-│   │   └── AuthContext.jsx      # login/register/logout session state
-│   ├── pages/
-│   │   ├── Home.jsx             # task list (GET /api/tasks)
-│   │   ├── TaskDetails.jsx      # task detail (GET/DELETE /api/tasks/:id)
-│   │   ├── TaskForm.jsx         # create/edit (POST/PUT /api/tasks)
-│   │   ├── Login.jsx            # POST /api/auth/login
-│   │   ├── Register.jsx         # POST /api/auth/register
-│   │   └── NotFound.jsx         # 404 page
-│   ├── services/
-│   │   └── api.js               # centralized fetch layer for WA-2
-│   ├── App.jsx                  # routes
-│   ├── main.jsx                 # entry point
-│   └── index.css                # global responsive styles
-├── .env                         # VITE_API_URL (not committed)
-├── .env.example
 ├── index.html
 ├── package.json
-└── vite.config.js
+├── vite.config.js
+└── src/
+    ├── main.jsx              # Entry point
+    ├── App.jsx               # Route map
+    ├── index.css             # Design system (variables, breakpoints, components)
+    ├── context/
+    │   └── AuthContext.jsx   # Auth state (login, register, logout)
+    ├── services/
+    │   └── api.js            # Fetch wrapper + all API calls (do not change lightly)
+    ├── components/
+    │   ├── Layout.jsx        # Navbar (desktop + hamburger) and page shell
+    │   ├── ProtectedRoute.jsx
+    │   ├── AuthLayout.jsx    # Split auth shell
+    │   ├── AuthIllustration.jsx
+    │   ├── Brand.jsx         # TaskFlow logo
+    │   ├── TaskCard.jsx      # Task row / mobile card
+    │   ├── Loading.jsx
+    │   └── ErrorMessage.jsx
+    └── pages/
+        ├── Home.jsx          # Dashboard, stats, task list, empty state
+        ├── Login.jsx
+        ├── Register.jsx
+        ├── TaskForm.jsx      # Create + edit
+        ├── TaskDetails.jsx
+        └── NotFound.jsx
 ```
 
-## Notes
+## Design System
 
-- WA-2 requires a **Bearer token for every task endpoint** — without logging in, the API returns 401. That's why the frontend has login/register pages.
-- WA-2 already has `cors()` enabled for all origins, so no backend change is needed for the frontend at `localhost:5173`.
+| Token          | Value     | Usage                    |
+| -------------- | --------- | ------------------------ |
+| Primary        | `#5B4CE2` | Buttons, active nav, brand |
+| Primary hover  | `#4C3FD0` | Button hover             |
+| Background     | `#F7F8FC` | App background           |
+| Surface        | `#FFFFFF` | Cards, navbar            |
+| Text           | `#111827` | Headings, primary text   |
+| Secondary text | `#667085` | Muted text               |
+| Border         | `#E5E7EB` | Card and input borders   |
+| Success        | `#16A34A` | Completed status         |
+| Warning        | `#D97706` | Pending status           |
+| Danger         | `#DC2626` | Destructive actions      |
+
+### Responsive Breakpoints
+
+| Range         | Behavior                                                        |
+| ------------- | --------------------------------------------------------------- |
+| > 1024px      | Full desktop layout (side-by-side auth, table with headers, 4-column stats) |
+| 768–1024px    | Tablet: condensed grids, auth switches to single column at ≤ 768px |
+| < 768px       | Mobile: hamburger menu, task cards, 2×2 stats, compact auth card |
+| < 480px / 360px | Small phones: reduced padding and type scale, everything fits 320px+ |
+
+## Author
+
+Madhavi Porte

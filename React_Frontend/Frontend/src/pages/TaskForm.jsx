@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { ArrowLeft, Plus, Save } from "lucide-react";
 import { createTask, getTask, updateTask, TASK_STATUSES } from "../services/api";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
@@ -122,9 +123,10 @@ export default function TaskForm() {
 
   if (loadError) {
     return (
-      <div>
+      <div className="page-narrow">
         <ErrorMessage message={loadError} />
         <Link to="/" className="btn btn-secondary">
+          <ArrowLeft size={15} aria-hidden="true" />
           Back to my tasks
         </Link>
       </div>
@@ -132,97 +134,108 @@ export default function TaskForm() {
   }
 
   return (
-    <section className="form-page">
-      <Link to={isEditMode ? `/tasks/${id}` : "/"} className="back-link">
-        ← {isEditMode ? "Back to task" : "Back to my tasks"}
+    <section className="page-narrow">
+      <Link
+        to={isEditMode ? `/tasks/${id}` : "/"}
+        className="back-link"
+      >
+        <ArrowLeft size={15} aria-hidden="true" />
+        {isEditMode ? "Back to task" : "Back to my tasks"}
       </Link>
 
-      <h1>{isEditMode ? "Edit task" : "Create a new task"}</h1>
+      <div className="form-card">
+        <h1>{isEditMode ? "Edit task" : "Create a new task"}</h1>
+        <p className="form-lede">
+          {isEditMode
+            ? "Update the details below and save your changes."
+            : "Add the details below to organize your work."}
+        </p>
 
-      {serverError && <ErrorMessage message={serverError} />}
+        {serverError && <ErrorMessage message={serverError} />}
 
-      <form className="task-form" onSubmit={handleSubmit} noValidate>
-        <div className="form-field">
-          <label htmlFor="title">
-            Title <span className="required" aria-hidden="true">*</span>
-          </label>
-          <input
-            id="title"
-            name="title"
-            type="text"
-            value={form.title}
-            onChange={handleChange}
-            placeholder="e.g. Finish the React assignment"
-            maxLength={MAX_TITLE_LENGTH + 10}
-            aria-required="true"
-            aria-invalid={errors.title ? "true" : "false"}
-            aria-describedby={errors.title ? "title-error" : undefined}
-          />
-          {errors.title ? (
-            <p className="field-error" id="title-error" role="alert">
-              {errors.title}
-            </p>
-          ) : (
-            <p className="field-hint">{form.title.trim().length}/{MAX_TITLE_LENGTH} characters</p>
-          )}
-        </div>
+        <form className="form" onSubmit={handleSubmit} noValidate>
+          <div className="form-field">
+            <label htmlFor="title">
+              Title <span className="required" aria-hidden="true">*</span>
+            </label>
+            <input
+              id="title"
+              name="title"
+              type="text"
+              className="input"
+              value={form.title}
+              onChange={handleChange}
+              placeholder="e.g. Finish the React assignment"
+              maxLength={MAX_TITLE_LENGTH + 10}
+              aria-required="true"
+              aria-invalid={errors.title ? "true" : "false"}
+              aria-describedby={errors.title ? "title-error" : undefined}
+            />
+            {errors.title ? (
+              <p className="field-error" id="title-error" role="alert">
+                {errors.title}
+              </p>
+            ) : (
+              <p className="field-hint">{form.title.trim().length}/{MAX_TITLE_LENGTH} characters</p>
+            )}
+          </div>
 
-        <div className="form-field">
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            rows={4}
-            value={form.description}
-            onChange={handleChange}
-            placeholder="Optional details about this task"
-            aria-invalid={errors.description ? "true" : "false"}
-            aria-describedby={errors.description ? "description-error" : undefined}
-          />
-          {errors.description ? (
-            <p className="field-error" id="description-error" role="alert">
-              {errors.description}
-            </p>
-          ) : (
-            <p className="field-hint">Optional — {form.description.length}/500 characters</p>
-          )}
-        </div>
+          <div className="form-field">
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              className="input"
+              rows={4}
+              value={form.description}
+              onChange={handleChange}
+              placeholder="Optional details about this task"
+              aria-invalid={errors.description ? "true" : "false"}
+              aria-describedby={errors.description ? "description-error" : undefined}
+            />
+            {errors.description ? (
+              <p className="field-error" id="description-error" role="alert">
+                {errors.description}
+              </p>
+            ) : (
+              <p className="field-hint">Optional — {form.description.length}/500 characters</p>
+            )}
+          </div>
 
-        <div className="form-field">
-          <label htmlFor="status">Status</label>
-          <select
-            id="status"
-            name="status"
-            value={form.status}
-            onChange={handleChange}
-            aria-invalid={errors.status ? "true" : "false"}
-          >
-            {TASK_STATUSES.map((status) => (
-              <option key={status.value} value={status.value}>
-                {status.label}
-              </option>
-            ))}
-          </select>
-          {errors.status && (
-            <p className="field-error" role="alert">
-              {errors.status}
-            </p>
-          )}
-        </div>
+          <div className="form-field">
+            <label htmlFor="status">Status</label>
+            <select
+              id="status"
+              name="status"
+              className="input"
+              value={form.status}
+              onChange={handleChange}
+              aria-invalid={errors.status ? "true" : "false"}
+            >
+              {TASK_STATUSES.map((status) => (
+                <option key={status.value} value={status.value}>
+                  {status.label}
+                </option>
+              ))}
+            </select>
+            {errors.status && (
+              <p className="field-error" role="alert">
+                {errors.status}
+              </p>
+            )}
+          </div>
 
-        <div className="form-actions">
-          <button type="submit" className="btn btn-primary" disabled={submitting}>
-            {submitting
-              ? "Saving..."
-              : isEditMode
-                ? "Save changes"
-                : "Create task"}
-          </button>
-          <Link to={isEditMode ? `/tasks/${id}` : "/"} className="btn btn-ghost">
-            Cancel
-          </Link>
-        </div>
-      </form>
+          <div className="form-actions">
+            <button type="submit" className="btn btn-primary" disabled={submitting}>
+              {isEditMode ? <Save size={16} aria-hidden="true" /> : <Plus size={16} aria-hidden="true" />}
+              {submitting ? "Saving..." : isEditMode ? "Save changes" : "Create Task"}
+            </button>
+            <Link to={isEditMode ? `/tasks/${id}` : "/"} className="btn btn-outline">
+              Cancel
+            </Link>
+          </div>
+        </form>
+      </div>
     </section>
   );
 }

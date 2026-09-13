@@ -1,9 +1,22 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  UserRoundPlus,
+  ListPlus,
+  TrendingUp,
+  Zap,
+  User,
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+} from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import ErrorMessage from "../components/ErrorMessage";
+import AuthLayout from "../components/AuthLayout";
+import Brand from "../components/Brand";
 
-// Client-side checks that mirror the WA-2 register endpoint rules
+// Client-side checks that mirror the WA-2 register endpoint rules — unchanged.
 function validateRegistration({ name, email, password, confirmPassword }) {
   const errors = {};
 
@@ -47,6 +60,8 @@ export default function Register() {
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState(null);
+  // Show/hide password (UI only — the submitted values are unchanged)
+  const [showPassword, setShowPassword] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -81,27 +96,61 @@ export default function Register() {
   }
 
   return (
-    <section className="auth-page">
+    <AuthLayout
+      eyebrow="TaskFlow"
+      headline={
+        <>
+          Create your account.
+          <br />
+          Start organizing your work.
+        </>
+      }
+      lede="Join TaskFlow and turn your plans into done — one task at a time."
+      features={[
+        {
+          icon: <ListPlus size={17} />,
+          title: "Create Tasks",
+          text: "Add and organize your tasks",
+        },
+        {
+          icon: <TrendingUp size={17} />,
+          title: "Track Progress",
+          text: "Stay on top of your goals",
+        },
+        {
+          icon: <Zap size={17} />,
+          title: "Get More Done",
+          text: "Turn your plans into achievements",
+        },
+      ]}
+    >
       <div className="auth-card">
-        <h1>Create your account</h1>
-        <p className="subtitle">Register to start managing your tasks.</p>
+        <Brand to="/login" />
+        <h1 className="auth-title">Create your account</h1>
+        <p className="auth-sub">Start organizing your work today.</p>
 
         {serverError && <ErrorMessage message={serverError} />}
 
-        <form className="task-form" onSubmit={handleSubmit} noValidate>
+        <form className="form" onSubmit={handleSubmit} noValidate>
           <div className="form-field">
             <label htmlFor="name">Name</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              autoComplete="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Your name"
-              aria-invalid={errors.name ? "true" : "false"}
-              aria-describedby={errors.name ? "name-error" : undefined}
-            />
+            <div className="input-wrap">
+              <span className="input-icon" aria-hidden="true">
+                <User size={16} />
+              </span>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                className="input"
+                autoComplete="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="Your name"
+                aria-invalid={errors.name ? "true" : "false"}
+                aria-describedby={errors.name ? "name-error" : undefined}
+              />
+            </div>
             {errors.name && (
               <p className="field-error" id="name-error" role="alert">
                 {errors.name}
@@ -110,18 +159,24 @@ export default function Register() {
           </div>
 
           <div className="form-field">
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="you@example.com"
-              aria-invalid={errors.email ? "true" : "false"}
-              aria-describedby={errors.email ? "email-error" : undefined}
-            />
+            <label htmlFor="email">Email address</label>
+            <div className="input-wrap">
+              <span className="input-icon" aria-hidden="true">
+                <Mail size={16} />
+              </span>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                className="input"
+                autoComplete="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="you@example.com"
+                aria-invalid={errors.email ? "true" : "false"}
+                aria-describedby={errors.email ? "email-error" : undefined}
+              />
+            </div>
             {errors.email && (
               <p className="field-error" id="email-error" role="alert">
                 {errors.email}
@@ -131,17 +186,31 @@ export default function Register() {
 
           <div className="form-field">
             <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              value={form.password}
-              onChange={handleChange}
-              placeholder="At least 6 characters"
-              aria-invalid={errors.password ? "true" : "false"}
-              aria-describedby={errors.password ? "password-error" : undefined}
-            />
+            <div className="input-wrap has-toggle">
+              <span className="input-icon" aria-hidden="true">
+                <Lock size={16} />
+              </span>
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                className="input"
+                autoComplete="new-password"
+                value={form.password}
+                onChange={handleChange}
+                placeholder="At least 6 characters"
+                aria-invalid={errors.password ? "true" : "false"}
+                aria-describedby={errors.password ? "password-error" : undefined}
+              />
+              <button
+                type="button"
+                className="input-trailing"
+                onClick={() => setShowPassword((visible) => !visible)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
             {errors.password && (
               <p className="field-error" id="password-error" role="alert">
                 {errors.password}
@@ -151,17 +220,23 @@ export default function Register() {
 
           <div className="form-field">
             <label htmlFor="confirmPassword">Confirm password</label>
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              autoComplete="new-password"
-              value={form.confirmPassword}
-              onChange={handleChange}
-              placeholder="Repeat your password"
-              aria-invalid={errors.confirmPassword ? "true" : "false"}
-              aria-describedby={errors.confirmPassword ? "confirmPassword-error" : undefined}
-            />
+            <div className="input-wrap">
+              <span className="input-icon" aria-hidden="true">
+                <Lock size={16} />
+              </span>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                className="input"
+                autoComplete="new-password"
+                value={form.confirmPassword}
+                onChange={handleChange}
+                placeholder="Repeat your password"
+                aria-invalid={errors.confirmPassword ? "true" : "false"}
+                aria-describedby={errors.confirmPassword ? "confirmPassword-error" : undefined}
+              />
+            </div>
             {errors.confirmPassword && (
               <p className="field-error" id="confirmPassword-error" role="alert">
                 {errors.confirmPassword}
@@ -170,7 +245,8 @@ export default function Register() {
           </div>
 
           <div className="form-actions">
-            <button type="submit" className="btn btn-primary btn-block" disabled={submitting}>
+            <button type="submit" className="btn btn-primary btn-block btn-lg" disabled={submitting}>
+              <UserRoundPlus size={16} aria-hidden="true" />
               {submitting ? "Creating account..." : "Register"}
             </button>
           </div>
@@ -180,6 +256,6 @@ export default function Register() {
           Already have an account? <Link to="/login">Log in</Link>
         </p>
       </div>
-    </section>
+    </AuthLayout>
   );
 }
