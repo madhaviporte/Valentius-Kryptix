@@ -76,7 +76,7 @@ async function request(path, { method = "GET", body, auth = true } = {}) {
   } catch {
     // fetch only rejects on network failures (server down, CORS, DNS, ...)
     throw new ApiError(
-      "Unable to reach the server. Please make sure the WA-2 backend is running on port 3000.",
+      "Unable to reach the server. Please check your internet connection or API configuration.",
       0
     );
   }

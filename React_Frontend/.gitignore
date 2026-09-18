@@ -1,0 +1,18 @@
+# Root ignores — per-app ignores also live in Backend/.gitignore and Frontend/.gitignore
+
+# Environment files (never commit secrets)
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Dependencies / build output
+node_modules/
+dist/
+build/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
