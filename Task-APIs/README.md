@@ -277,6 +277,41 @@ For example, creating a task without a title returns:
   "message": "Title is required and must be a non-empty string"
 }
 
+## Running Tests
+
+### Install Dependencies
+
+npm install
+
+This installs the application dependencies plus the development dependencies used for testing (Jest and Supertest).
+
+### Run All Tests
+
+npm test
+
+### Run Tests with Coverage
+
+npm run test:coverage
+
+### Coverage Report
+
+The coverage report is generated in the coverage folder in the project root:
+
+- Open coverage/lcov-report/index.html in a browser for the full HTML report.
+- coverage/lcov.info contains the machine-readable lcov data.
+- coverage/coverage-summary.json contains per-file totals.
+- A text summary is also printed to the terminal after the run.
+
+The suite fails if statement, branch, function or line coverage of the application code drops below 80 percent (configured in jest.config.js). The coverage folder is generated output and does not need to be committed.
+
+### Test Environment Configuration
+
+No extra configuration is required to run the tests:
+
+- tests/setup.js (registered in jest.config.js) sets NODE_ENV, a test-only JWT_SECRET, a dummy MONGO_URI and an empty PORT before the application code loads, so tests do not depend on your .env file.
+- tests/helpers/testApp.js loads the real server.js with mongoose.connect stubbed and app.listen disabled, so tests never open a database connection, never bind a port and do not require a running MongoDB instance.
+- Test files live in tests/unit/ (unit tests) and tests/integration/ (Supertest HTTP tests).
+
 ## Testing with Postman
 
 The API was tested using Postman.
